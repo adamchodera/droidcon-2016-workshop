@@ -22,7 +22,7 @@ public class MainActivityTest {
   @Test
   public void shouldDisplayHelloWorld() {
     Espresso.onView(ViewMatchers.withId(R.id.id_text_view))
-        .check(matches(withText(""));
+        .check(matches(withText("")));
 
   }
 }
