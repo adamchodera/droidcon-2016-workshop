@@ -1,17 +1,21 @@
 buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
+  repositories {
+    jcenter()
+    maven { url 'https://maven.fabric.io/public' }
+  }
 
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.+'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.+'
+  }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
+  maven { url 'https://maven.fabric.io/public' }
 }
 
 
@@ -25,9 +29,12 @@ android {
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    ext.betaDistributionGroupAliases="Green Robots internal testers"
+    ext.betaDistributionGroupAliases = "Green Robots internal testers"
   }
   buildTypes {
+    debug {
+      testCoverageEnabled true
+    }
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -42,7 +49,7 @@ dependencies {
   })
   compile 'com.android.support:appcompat-v7:24.2.1'
   testCompile 'junit:junit:4.12'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-        transitive = true;
-    }
+  compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+    transitive = true;
+  }
 }
